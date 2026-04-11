@@ -1,27 +1,21 @@
 package com.example.littlelemon
 
-import android.content.Context
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 
 @Composable
-fun MyNavigation(navController: NavHostController) {
-    val context = LocalContext.current
-    val sharedPreferences = context.getSharedPreferences("LittleLemon", Context.MODE_PRIVATE)
+fun MyNavigation(navController: NavHostController, database: AppDatabase) { // Added database here
+    // ... (rest of your sharedPreferences logic)
 
-    // Determine start destination based on SharedPreferences
-    val isRegistered = sharedPreferences.contains("email")
-    val startDestination = if (isRegistered) Home.route else Onboarding.route
-
-    NavHost(navController = navController, startDestination = startDestination) {
+    NavHost(navController = navController, startDestination = "Onboarding") {
         composable(Onboarding.route) {
             Onboarding(navController)
         }
         composable(Home.route) {
-            Home(navController)
+            // Pass the database to the Home composable
+            Home(navController, database)
         }
         composable(Profile.route) {
             Profile(navController)

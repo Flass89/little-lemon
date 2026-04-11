@@ -5,12 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material.* // Material 2 imports
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -85,7 +80,7 @@ fun Profile(navController: NavHostController) {
                 sharedPreferences.edit().clear().apply()
                 // Navigate back to Onboarding
                 navController.navigate(Onboarding.route) {
-                    // Clear the backstack so user can't go back to Profile
+                    // Clear the backstack
                     popUpTo(Home.route) { inclusive = true }
                 }
             },
@@ -94,7 +89,7 @@ fun Profile(navController: NavHostController) {
                 .padding(20.dp)
                 .height(50.dp),
             shape = RoundedCornerShape(8.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF4CE14))
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFFF4CE14))
         ) {
             Text(text = "Log out", color = Color.Black, fontWeight = FontWeight.Bold)
         }
@@ -120,14 +115,13 @@ fun ProfileDataBox(value: String) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(bottom = 20.dp),
-        enabled = false, // Makes it look like the mockup (read-only)
+        enabled = false, // Makes it read-only
         shape = RoundedCornerShape(8.dp),
-        colors = OutlinedTextFieldDefaults.colors(
+        // CORRECT MATERIAL 2 COLORS:
+        colors = TextFieldDefaults.outlinedTextFieldColors(
             disabledTextColor = Color.Black,
             disabledBorderColor = Color.LightGray,
-            disabledLabelColor = Color.Gray,
-            disabledPlaceholderColor = Color.Gray
-
+            disabledLabelColor = Color.Gray
         )
     )
 }
